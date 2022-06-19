@@ -4,6 +4,7 @@ import com.sda.javaee14.springdemojavaee14.service.GreetingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 // @RestController creates new Spring bean based on the class
@@ -35,13 +36,13 @@ public class MyFirstRestController {
     // server: https://www.google.com/
     // /search: application (endpoint) on the server
     // ? : query separator
-    // q=Estonia, q: parameter name, Estonia is value for q parameter
-    // /greeting?name=Allan&surname=Uustal
+    // q=Estonia, q: parameter firstname, Estonia is value for q parameter
+    // /greeting?firstname=Allan&surname=Uustal
     // & is used for another parameter is coming
     @GetMapping("/greeting")
-    public String greetUser(String name, String surname){
-        log.info("greetUser called with parameters: name:[{}], surname[{}]", name, surname); // String.format("name: %s, name")
-        return greetingService.makeSomeGreetingToUser(name+ " " + surname);
+    public String greetUser(@RequestParam(value = "name", defaultValue = "John")  String firstName,@RequestParam(value = "surname", defaultValue = "Doe") String surname){
+        log.info("greetUser called with parameters: firstname:[{}], surname[{}]", firstName, surname); // String.format("firstname: %s, firstname")
+        return greetingService.makeSomeGreetingToUser(firstName+ " " + surname);
     }
 }
 
