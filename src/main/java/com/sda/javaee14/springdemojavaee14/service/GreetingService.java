@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j // provide log field for us the same as:
-// private static final Logger log = LoggerFactory.getLogger(MyFirstRestController.class);
+// private static final Logger log = LoggerFactory.getLogger(GreetingService.class);
 
 public class GreetingService {
     public String makeSomeGreetingToUser(String name){
