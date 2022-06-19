@@ -5,4 +5,4 @@
 
 ### Git rules
 - working directory should be clean when we travel between  commits and branches
-- 
+- every time we work on new task we should create and use new branch
