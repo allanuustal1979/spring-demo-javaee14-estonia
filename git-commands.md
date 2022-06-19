@@ -6,3 +6,5 @@
 ### Git rules
 - working directory should be clean when we travel between  commits and branches
 - every time we work on new task we should create and use new branch
+- git status shows what's going on local repositories, git fetch shows what's going on remote repositories
+- 
