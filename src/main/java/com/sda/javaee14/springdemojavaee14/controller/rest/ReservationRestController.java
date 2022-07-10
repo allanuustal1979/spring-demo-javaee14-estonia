@@ -1,6 +1,6 @@
 package com.sda.javaee14.springdemojavaee14.controller.rest;
 
-import com.sda.springdemojavaee14.entity.Reservation;
+import com.sda.javaee14.springdemojavaee14.entity.Reservation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
