@@ -49,6 +49,7 @@ public class PersonWithAllSourceCode {
                 '}';
     }
 
+    //If you provide equals method always add hashCode too
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,6 +58,7 @@ public class PersonWithAllSourceCode {
         return age == that.age && Objects.equals(name, that.name) && Objects.equals(surname, that.surname);
     }
 
+    // its necessary for collections
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, age);
