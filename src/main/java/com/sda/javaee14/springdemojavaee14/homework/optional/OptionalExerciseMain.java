@@ -9,11 +9,27 @@ public class OptionalExerciseMain {
         System.out.println("Nick lenght is:" + nickLenght);
 
         Optional<String> maybeNick = personNickIfPresent();
+        // isPresent() method used
         if (maybeNick.isPresent()){
             System.out.println(maybeNick.get());
         } else {
             System.out.println("Sorry, no Nick");
         }
+
+        // isEmpty() method used
+        if (maybeNick.isEmpty()){
+            System.out.println("Sorry, no Nock");
+        } else {
+
+            System.out.println(maybeNick.get());
+        }
+
+        // orElse() method used
+        System.out.println("Better usage of Optional");
+        System.out.println("nick:" + maybeNick.orElse("no Nick"));
+
+        System.out.println("Optional with lambda");
+        maybeNick.ifPresent();
 
     }
 
