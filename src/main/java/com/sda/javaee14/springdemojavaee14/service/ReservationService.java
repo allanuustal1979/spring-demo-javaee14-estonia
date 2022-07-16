@@ -25,6 +25,11 @@ public class ReservationService {
     }
 
     public Reservation findReservationById(Long reservationId) {
-        return null;
+        log.info("finding reservation by id: [{}]", reservationId);
+   //     Optional<Reservation> reservationFromDb = reservationRepository.findById(reservationId);
+        //var is just for less typing and replaces all type name - the same as above line
+        // if you use var provide good name - always try to provide good name
+        var reservationFromDb = reservationRepository.findById(reservationId);
+        return reservationFromDb.orElse(null);
     }
 }
