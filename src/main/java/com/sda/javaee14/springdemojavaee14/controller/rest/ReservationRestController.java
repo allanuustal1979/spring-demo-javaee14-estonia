@@ -1,14 +1,17 @@
 package com.sda.javaee14.springdemojavaee14.controller.rest;
 
+import com.sda.javaee14.springdemojavaee14.dto.GenericError;
 import com.sda.javaee14.springdemojavaee14.entity.Reservation;
 import com.sda.javaee14.springdemojavaee14.service.ReservationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,8 +37,9 @@ public class ReservationRestController {
     // /reservations/1234
     // /reservations/998
     // @PathVariable("id") get id value from url and use for reservationId
-    // 200 if there's result and 404 if wrong url was used by client
-    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Long reservationId) {
+    // 200 if there's result and Response: ResponseEntity<Reservation>
+    // and 404 if wrong url was used by client: ResponseEntity<GenericError>
+    public ResponseEntity<?> getReservationById(@PathVariable("id") Long reservationId) {
         log.info("trying to find reservation by id: [{}]", reservationId);
 
         var responseBody = reservationService.findReservationById(reservationId);
@@ -46,9 +50,18 @@ public class ReservationRestController {
 
         ResponseEntity<Reservation> result = ResponseEntity.notFound().build();
         if (responseBody != null) {
-            result = ResponseEntity.ok(responseBody);
+            return ResponseEntity.ok(responseBody);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    GenericError.builder()
+                            .responseCode(404)
+                            .timestamp(LocalDateTime.now())
+                            .errorMessage("Provided id is wrong:" + reservationId)
+                            .path("/reservations/" + reservationId)
+                                //.path() TODO: use URI class
+                            .build()
+            );
         }
-        return result;
     }
 
 
