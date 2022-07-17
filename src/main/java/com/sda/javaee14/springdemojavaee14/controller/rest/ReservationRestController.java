@@ -1,5 +1,4 @@
 package com.sda.javaee14.springdemojavaee14.controller.rest;
-
 import com.sda.javaee14.springdemojavaee14.dto.GenericError;
 import com.sda.javaee14.springdemojavaee14.entity.Reservation;
 import com.sda.javaee14.springdemojavaee14.service.ReservationService;
@@ -11,13 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @Slf4j
 @RequestMapping("/api")
+// TODO: deploy to Heroku
 public class ReservationRestController {
+
 
     private final ReservationService reservationService;
 
@@ -25,11 +28,13 @@ public class ReservationRestController {
         this.reservationService = reservationService;
     }
 
-
     @GetMapping("/reservations")
     public List<Reservation> getAllReservations() {
         log.info("getting all reservations");
-
+        // not handled exception will cause 500 server response
+//        if (true) {
+//            throw new NullPointerException("Breaking the server??");
+//        }
         return reservationService.findAllReservations();
     }
 
@@ -37,8 +42,8 @@ public class ReservationRestController {
     // /reservations/1234
     // /reservations/998
     // @PathVariable("id") get id value from url and use for reservationId
-    // 200 if there's result and Response: ResponseEntity<Reservation>
-    // and 404 if wrong url was used by client: ResponseEntity<GenericError>
+    // 200 if there's result and response: ResponseEntity<Reservation>
+    // and 404 if wrong url was used by client and response: ResponseEntity<GenericError>
     public ResponseEntity<?> getReservationById(@PathVariable("id") Long reservationId) {
         log.info("trying to find reservation by id: [{}]", reservationId);
 
@@ -48,22 +53,25 @@ public class ReservationRestController {
 //        return ResponseEntity.status(HttpStatus.OK)
 //                .body(responseBody);
 
-        ResponseEntity<Reservation> result = ResponseEntity.notFound().build();
         if (responseBody != null) {
             return ResponseEntity.ok(responseBody);
         } else {
+            // https://danielmiessler.com/images/url-urn-uri-structure-2022.png
+            String path = "/api/reservations/" + reservationId;
+            try {
+                URI uri = new URI("/api/reservations/" + reservationId);
+                path = uri.toString();
+            } catch (URISyntaxException e) {
+                log.warn("problems with creating URI", e);
+            }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     GenericError.builder()
                             .responseCode(404)
                             .timestamp(LocalDateTime.now())
-                            .errorMessage("Provided id is wrong:" + reservationId)
-                            .path("/reservations/" + reservationId)
-                                //.path() TODO: use URI class
+                            .errorMessage("You provided wrong id: " + reservationId)
+                            .path(path)
                             .build()
             );
         }
     }
-
-
-
 }
