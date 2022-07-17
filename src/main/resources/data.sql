@@ -1,2 +1,3 @@
 INSERT INTO RESERVATIONS(ADDRESS, EMAIL,  START_BOOKING_TIME, END_BOOKING_TIME, NUMBER_OF_PEOPLE, SURNAME, TABLE_NUMBER, PHONE_NUMBER)
 VALUES ('Riga 123', 'Riga_123@gmail.com', current_timestamp(0), timestampadd(HOUR, 2, current_timestamp(0)), 3, 'Vilks',7, '+371 235436567');
+VALUES ('Jõgeva', 'allan.uustal@gmail.com', current_timestamp(0), timestampadd(HOUR, 2, current_timestamp(0)), 2, 'Uustal',6, '+372 5111209');
