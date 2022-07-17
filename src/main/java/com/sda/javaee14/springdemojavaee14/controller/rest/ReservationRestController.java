@@ -59,6 +59,7 @@ public class ReservationRestController {
             // https://danielmiessler.com/images/url-urn-uri-structure-2022.png
             String path = "/api/reservations/" + reservationId;
             try {
+                //TODO: fix server url
                 URI uri = new URI("/api/reservations/" + reservationId);
                 path = uri.toString();
             } catch (URISyntaxException e) {
