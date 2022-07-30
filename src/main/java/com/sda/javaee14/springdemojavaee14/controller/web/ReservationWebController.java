@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/web")
 public class ReservationWebController {
 
+    private static final String ONE_RESERVATION_KEY = "reservation";
+    private static final String RESERVATIONS_KEY = "reservations";
     private final ReservationService reservationService;
 
     public ReservationWebController(ReservationService reservationService) {
@@ -21,9 +23,19 @@ public class ReservationWebController {
     @GetMapping("/reservations/{id}")
     public String showReservationById(@PathVariable("id") Long id, Model data) {
         var reservationFromDB = reservationService.findReservationById(id);
-        data.addAttribute("reservation", reservationFromDB);
+        data.addAttribute(ONE_RESERVATION_KEY, reservationFromDB);
 
         return "reservation";
     }
+
+    @GetMapping("/reservations")
+    public String showAllReservations(Model data) {
+
+        var reservationsFromDB = reservationService.findAllReservations();
+        data.addAttribute(RESERVATIONS_KEY, reservationsFromDB);
+
+        return "all-reservations";
+    }
+
 
 }
