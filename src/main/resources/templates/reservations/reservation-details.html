@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation</title>
+</head>
+<body>
+    <h1>Reservation details</h1>
+    <p>Id: <span th:text="${reservation.id}">100</span></p>
+    <p>Table no: <span th:text="${reservation.tableNumber}">1</span></p>
+    <p>Booking starts: <span th:text="${reservation.startBookingTime}">111111</span></p>
+    <p>Booking ends: <span th:text="${reservation.endBookingTime}">111111</span></p>
+    <p>Phone Number: <span th:text="${reservation.phoneNumber}">111111</span></p>
+    <p>Surname: <span th:text="${reservation.surname}">111111</span></p>
+    <p>Email: <span th:text="${reservation.email}">111111</span></p>
+    <p>Number of people: <span th:text="${reservation.numberOfPeople}">111111</span></p>
+    <p>Address: <span th:text="${reservation.address}">111111</span></p>
+</body>
+</html>

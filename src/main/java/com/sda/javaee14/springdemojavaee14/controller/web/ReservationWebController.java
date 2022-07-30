@@ -25,7 +25,7 @@ public class ReservationWebController {
         var reservationFromDB = reservationService.findReservationById(id);
         data.addAttribute(ONE_RESERVATION_KEY, reservationFromDB);
 
-        return "reservation";
+        return "reservations/reservation-details";
     }
 
     @GetMapping("/reservations")
