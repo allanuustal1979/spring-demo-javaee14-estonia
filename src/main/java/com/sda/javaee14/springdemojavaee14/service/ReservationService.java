@@ -32,4 +32,10 @@ public class ReservationService {
         var reservationFromDb = reservationRepository.findById(reservationId);
         return reservationFromDb.orElse(null);
     }
+
+
+    public void deleteReservationById(Long reservationId) {
+        log.info("Delete reservation by id: [{}]",reservationId);
+        reservationRepository.deleteById(reservationId);
+    }
 }
